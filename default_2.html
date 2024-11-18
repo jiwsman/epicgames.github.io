@@ -1,0 +1,467 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="thumbnail.png" type="image/png"> <!-- For .ico files -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Fortnite Code Redemption</title>
+    <style>
+        /* Importing Fortnite-like font */
+        @import url('https://fonts.googleapis.com/css2?family=Burbank+Big+Condensed:wght@700&display=swap');
+
+        /* General Styles */
+        body {
+            font-family: 'Burbank Big Condensed', sans-serif;
+            background-color: #1b1e23;
+            color: white;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://cdn2.unrealengine.com/Fortnite/fortnite-game/season-x/fortnite-seasonx-keyart-1920x1080-1920x1080-2e9d2627b9f4.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #0d0e12;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid #2c2f35;
+        }
+
+        header img {
+            width: 180px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Points Section */
+        .points {
+            text-align: center;
+            font-size: 30px;
+            margin: 20px 0;
+            color: #00c3ff;
+        }
+
+        /* Redeem Codes Section */
+        .redeem-codes {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .redeem-codes h2 {
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .code {
+            background-color: #2c2f35;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .code span {
+            font-size: 22px;
+            letter-spacing: 2px;
+        }
+
+        .code .blurred {
+            filter: blur(8px);
+        }
+
+        .code .date {
+            font-size: 14px;
+            color: #b1b1b1;
+        }
+
+        /* Wheel Section */
+        .wheel-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .wheel-disabled {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        .wheel {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #0078f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 0 15px rgba(0, 120, 242, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .wheel:hover {
+            transform: rotate(5deg);
+        }
+
+        .wheel-section p {
+            font-size: 18px;
+            color: #b1b1b1;
+            margin-top: 15px;
+        }
+
+        /* Tasks Section */
+        .tasks {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .tasks h2 {
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .task {
+            background-color: #2c2f35;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .task button {
+            background-color: #0078f2;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .task button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Username Validation Section */
+        .username-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .username-section input {
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            width: 250px;
+            text-align: center;
+        }
+
+        .username-section button {
+            background-color: #0078f2;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .username-section button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Error Popup Styles */
+        .error-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffcc00;
+            color: #1b1e23;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: pop-up 0.5s ease;
+        }
+
+        .error-popup h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .error-popup p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .error-popup ul {
+            text-align: left;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .error-popup ul li {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        .error-popup button {
+            background-color: #0078f2;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .error-popup button:hover {
+            background-color: #005bb5;
+        }
+
+        @keyframes pop-up {
+            0% {
+                transform: translate(-50%, -40%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #0d0e12;
+            padding: 40px 0;
+            text-align: center;
+            color: #b1b1b1;
+            border-top: 2px solid #2c2f35;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #0078f2;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer .certificates {
+            margin-top: 20px;
+        }
+
+        footer .certificates img {
+            width: 100px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <img src="/epic_icon_249761.png" alt="Description of the image">
+
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Points Display -->        
+        <div class="points">Points: <span id="points">0</span>pt</div>
+
+        <!-- Redeem Codes Section -->
+        <div class="redeem-codes">
+            <h2>Redeem Codes</h2>
+            <div id="codes-list">
+                <!-- Codes will be inserted here dynamically -->
+            </div>
+        </div>
+
+        <!-- Wheel Section -->
+        <div class="wheel-section">
+            <div id="wheel" class="wheel wheel-disabled">Spin</div>
+            <p>You need 5 points to spin the wheel.</p>
+        </div>
+
+        <!-- Tasks Section -->
+        <div class="tasks">
+            <h2>Complete Tasks to Earn Points</h2>
+            <p>Earn exclusive Fortnite rewards by completing the steps below:</p>
+            <ol>
+                <li>Click any of the buttons below to sign up on our trusted partner’s site.</li>
+                <li>Stay active on the partner's site for at least 30 seconds—this helps verify your username and unlocks your reward instantly.</li>
+                <p><strong>⚠️ Important:</strong> Ensure you're active on the partner's website for at least 30 seconds. This guarantees your username is verified and your prize is activated.</p>
+
+            </ol>
+
+            <!-- Bubbles for Partner Sign-Up -->
+            <div class="bubbles">
+                <button class="bubble" onclick="openPartnerSite('https://t.anchat.link/341157/6933?bo=2753,2754,2755,2756&popUnder=true&aff_sub5=SF_006OG000004lmDN')">Partner 1<br><span class="points">5pt</span></button>
+                <button class="bubble" onclick="openPartnerSite('https://t.ajrkm.link/341157/4152?bo=2779,2778,2777,2776,2775&popUnder=true&aff_sub5=SF_006OG000004lmDN')">Partner 2<br><span class="points">5pt</span></button>
+                <button class="bubble" onclick="openPartnerSite('https://t.ajrkm.link/341157/2934/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN')">Partner 3<br><span class="points">5pt</span></button>
+                <button class="bubble" onclick="openPartnerSite('https://t.anchat.link/341157/7511/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN')">Partner 4<br><span class="points">5pt</span></button>
+                <button class="bubble" onclick="openPartnerSite('https://t.anchat.link/341157/5380?bo=2753,2754,2755,2756&popUnder=true&aff_sub5=SF_006OG000004lmDN')">Partner 5<br><span class="points">5pt</span></button>
+
+                <button class="bubble" onclick="openPartnerSite('https://t.anchat.link/341157/5421?bo=2753,2754,2755,2756&popUnder=true&aff_sub5=SF_006OG000004lmDN')">Partner 6<br><span class="points">5pt</span></button>
+
+            </div>
+
+
+
+
+
+            <!-- Username Verification Section -->
+            <div class="username-section">
+                <input type="text" id="username" placeholder="Enter the username you used on the partner site">
+                <button onclick="showErrorPopup()">Verify Username</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Popup -->
+    <div id="error-popup" class="error-popup">
+        <h3>⚠️ Username Activation Failed ⚠️</h3>
+        <p>We couldn’t verify your username. Don’t worry—this is a common issue!</p>
+        <p><strong>Possible Reasons:</strong></p>
+        <ul>
+            <li>Incorrect Email: Make sure you used a valid and active email address during sign-up.</li>
+            <li>New Partner Required: Sometimes, our system needs you to sign up with a different partner for verification.</li>
+            <li>Username Entry Error: Double-check your username for any typos or errors.</li>
+        </ul>
+        <p><strong>🔄 Solution:</strong> To ensure your username is activated, please sign up with another partner below. This will greatly improve your chances of getting your reward!</p>
+        <p>Remember: Many users who faced this issue resolved it by signing up with a different partner—don’t miss your chance to unlock your exclusive Fortnite reward!</p>
+        <button onclick="closeErrorPopup()">Close</button>
+    </div>
+
+    <script>
+        // Function to open partner site in a new tab
+        function openPartnerSite(url) {
+            window.open(url, '_blank');
+        }
+
+        // Function to show the error popup
+        function showErrorPopup() {
+            const popup = document.getElementById('error-popup');
+            popup.style.display = 'block';
+        }
+
+        // Function to close the error popup
+        function closeErrorPopup() {
+            const popup = document.getElementById('error-popup');
+            popup.style.display = 'none';
+        }
+
+        // Points and codes initialization (can be modified as needed)
+        let points = 0;
+        const codes = [
+            { code: "5PGPF-*****-*****", date: "Nov 16, 2024" },
+            { code: "MYN43-*****-*****", date: "Nov 16, 2024" },
+            { code: "I3KLS-*****-*****", date: "Nov 16, 2024" },
+            { code: "38PNW-*****-*****", date: "Nov 16, 2024" },
+            { code: "QR2A9-*****-*****", date: "Nov 16, 2024" },
+            { code: "3U1PX-*****-*****", date: "Nov 16, 2024" },
+            { code: "9Z0MB-*****-*****", date: "Nov 16, 2024" },
+            { code: "CDE2F-*****-*****", date: "Nov 16, 2024" },
+            { code: "GHTCF-*****-*****", date: "Nov 16, 2024" },
+            { code: "MMS41-*****-*****", date: "Nov 16, 2024" },
+        ];
+
+        // Function to display redeem codes
+        function displayCodes() {
+            const codesList = document.getElementById('codes-list');
+            codesList.innerHTML = '';
+            codes.forEach(({ code, date }) => {
+                const codeElement = document.createElement('div');
+                codeElement.className = 'code';
+                codeElement.innerHTML = `<span>${code}</span><span class="date">${date}</span>`;
+                codesList.appendChild(codeElement);
+            });
+        }
+
+        // Function to complete a task and earn points
+        function completeTask() {
+            points += 5;
+            document.getElementById('points').innerText = points;
+            unlockWheel();
+        }
+
+        // Function to unlock the wheel if the user has enough points
+        function unlockWheel() {
+            if (points >= 5) {
+                const wheel = document.getElementById('wheel');
+                wheel.classList.remove('wheel-disabled');
+                wheel.onclick = spinWheel;
+            }
+        }
+
+        // Function to handle the wheel spin
+        function spinWheel() {
+            const randomIndex = Math.floor(Math.random() * codes.length);
+            alert(`You unlocked the code: ${codes[randomIndex].code}`);
+        }
+
+        // Initialize the redeem codes display
+        displayCodes();
+    </script>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>© 2024 Epic Games, Inc. All rights reserved. Fortnite and the Fortnite logo are trademarks of Epic Games, Inc. This promotion is not affiliated with or endorsed by Epic Games.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Us</a></p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
